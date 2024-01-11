@@ -1,8 +1,8 @@
 all:
-	cargo run
-
-release:
 	cargo run --release
+
+debug:
+	cargo run
 
 reset:
 	probe-rs reset --chip RP2040 --protocol swd
