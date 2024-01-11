@@ -10,7 +10,7 @@ Features:
 - Kailh Choc V1 switches ([datasheet](https://cdn-shop.adafruit.com/product-files/5113/CHOC+keyswitch_Kailh-CPG135001D01_C400229.pdf)), mounted in 13.85x13.85 square holes
 - [Raspberry Pico](https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf) as the keyboard controller
 - Firmware in Rust, based on [rp2040-hal](https://github.com/rp-rs/rp-hal-boards/tree/main/boards/rp-pico), [RTIC v1](https://rtic.rs/1/book/en/) and [Keyberon](https://github.com/TeXitoi/keyberon)
-- Keymap uses arrow keys, shift, space, 'z'  and 'x' ([m8.run](https://m8.run) defaults). Can be trivially updated to support [m8c](https://github.com/laamaa/m8c) layout (or just edit your `m8c.ini`).
+- Supports both [m8.run](https://m8.run) and [m8c](https://github.com/laamaa/m8c) keymaps (see below)
 - Programmed and debugged over SWD with [probe-rs](https://probe.rs/) and [Raspberry Pi Debug Probe](https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html)
 - Bottom plate also has a mount for [Teensy 4.1](https://www.pjrc.com/store/teensy41.html) (with headers) which runs M8 Headless.
  
@@ -19,3 +19,11 @@ Features:
 ![side view](img/side.jpeg)
 ![bottom plate](img/bottom-plate.jpeg)
 ![matrix](img/wiring.jpeg)
+
+### Keymap
+
+TBD
+
+### Install
+
+TBD
