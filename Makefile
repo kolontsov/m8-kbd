@@ -4,6 +4,10 @@ all:
 release:
 	cargo run --release
 
+reset:
+	probe-rs reset --chip RP2040 --protocol swd
+	probe-rs attach --chip RP2040 --protocol swd target/thumbv6m-none-eabi/debug/m8-kbd
+
 prepare:
 	rustup target install thumbv6m-none-eabi
 	cargo install flip-link
