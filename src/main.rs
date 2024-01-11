@@ -5,6 +5,7 @@ mod keymap;
 
 use defmt_rtt as _;
 use panic_probe as _;
+use core::ptr::read_volatile;
 
 use rp_pico::{hal, pac, hal::usb};
 use rp_pico::hal::gpio::{DynPinId, FunctionSioOutput, FunctionSioInput, Pin, DynPullType};
@@ -78,8 +79,12 @@ const NVRAM_OFFSET: usize = FLASH_LENGTH - FLASH_SECTOR_SIZE;
 #[link_section = ".nvram"]
 static NVRAM: [u8; 256] = [0; FLASH_PAGE_SIZE];
 
+unsafe fn read_nvram(index: usize) -> u8 {
+    read_volatile(&NVRAM[index])
+}
+
 unsafe fn write_to_nvram(index: usize, value: u8) {
-    let mut page: [u8; FLASH_PAGE_SIZE] = NVRAM;
+    let mut page: [u8; FLASH_PAGE_SIZE] = read_volatile(&NVRAM);
     page[index] = value;
     cortex_m::interrupt::free(|_cs| {
         flash::flash_range_erase_and_program(NVRAM_OFFSET as u32, &page, false);
