@@ -13,6 +13,7 @@ embedded-hal = "0.2"
 rp-pico = "0.8"
 rp2040-monotonic = "1.3"
 rp2040-hal = { version = "0.9", features = ["rt", "rp2040-e5"] }
+rp2040-flash = "0.4"
 
 # latest usb-device is 0.3, but 0.2 is required by current keyberon and rp-pico
 usb-device = "0.2"
