@@ -8,6 +8,7 @@ use panic_probe as _;
 
 use rp_pico::{hal, pac, hal::usb};
 use rp_pico::hal::gpio::{DynPinId, FunctionSioOutput, FunctionSioInput, Pin, DynPullType};
+use rp2040_flash::flash;
 use embedded_hal::digital::v2::OutputPin;
 type DynPinInput = Pin<DynPinId, FunctionSioInput, DynPullType>;
 type DynPinOutput = Pin<DynPinId, FunctionSioOutput, DynPullType>;
@@ -67,6 +68,22 @@ pub fn debug_print_event(event: Event) {
             defmt::info!("Release: row: {:?}, col: {:?}", row, col);
         },
     }
+}
+
+const FLASH_LENGTH: usize = 0x200000;
+const FLASH_PAGE_SIZE: usize = 0x100;
+const FLASH_SECTOR_SIZE: usize = 16*FLASH_PAGE_SIZE;
+const NVRAM_OFFSET: usize = FLASH_LENGTH - FLASH_SECTOR_SIZE;
+
+#[link_section = ".nvram"]
+static NVRAM: [u8; 256] = [0; FLASH_PAGE_SIZE];
+
+unsafe fn write_to_nvram(index: usize, value: u8) {
+    let mut page: [u8; FLASH_PAGE_SIZE] = NVRAM;
+    page[index] = value;
+    cortex_m::interrupt::free(|_cs| {
+        flash::flash_range_erase_and_program(NVRAM_OFFSET as u32, &page, false);
+    });
 }
 
 #[rtic::app(device = rp_pico::hal::pac, peripherals = true, dispatchers = [SW0_IRQ, SW1_IRQ])]
