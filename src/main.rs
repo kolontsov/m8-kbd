@@ -27,7 +27,7 @@ type UsbDevice = usb_device::device::UsbDevice<'static, usb::UsbBus>;
 
 const KBD_COLS: usize = 3;
 const KBD_ROWS: usize = 3;
-const KBD_LAYERS: usize = 2;
+const KBD_LAYERS: usize = 3;
 
 /// USB VID/PID for a generic keyboard from
 /// https://github.com/obdev/v-usb/blob/master/usbdrv/USB-IDs-for-free.txt
@@ -46,9 +46,10 @@ use keyberon::debounce::Debouncer;
 use keyberon::matrix::Matrix;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
-pub enum CustomAction { Uf2, Reset }
+pub enum CustomAction { Uf2, Reset, ChangeDefaultLayer }
 pub const UF2: Action<CustomAction> = Action::Custom(CustomAction::Uf2);
 pub const RESET: Action<CustomAction> = Action::Custom(CustomAction::Reset);
+pub const CHANGE_DEFAULT_LAYER: Action<CustomAction> = Action::Custom(CustomAction::ChangeDefaultLayer);
 pub type Layout = keyberon::layout::Layout<KBD_COLS, KBD_ROWS, KBD_LAYERS, CustomAction>;
 pub type Layers = keyberon::layout::Layers<KBD_COLS, KBD_ROWS, KBD_LAYERS, CustomAction>;
 
@@ -184,8 +185,12 @@ mod app {
             [[false; KBD_COLS]; KBD_ROWS],
             5,
         );
-        let layout = Layout::new(&keymap::LAYERS);
+        let mut layout = Layout::new(&keymap::LAYERS);
         let chording = Chording::new(&CHORDS);
+
+        let default_layer = unsafe { read_nvram(0) };
+        defmt::info!("Default layer: {:?}", default_layer);
+        layout.set_default_layer(default_layer as usize);
 
         (
             Shared { usb_dev, usb_class, layout },
@@ -244,6 +249,13 @@ mod app {
                 CustomAction::Reset => {
                     defmt::info!("Reset!");
                     cortex_m::peripheral::SCB::sys_reset();
+                }
+                CustomAction::ChangeDefaultLayer => {
+                    let mut layer: u8 = unsafe { read_nvram(0) };
+                    layer = (layer + 1) % 2;
+                    defmt::info!("Changing default layer to {:?}", layer);
+                    cx.shared.layout.set_default_layer(layer as usize);
+                    unsafe { write_to_nvram(0, layer) };
                 }
             },
             _ => (),
