@@ -19,7 +19,7 @@ Features:
 
 When you press a key, the keyboard sends a code to the host running the [M8 display client](https://github.com/DirtyWave/M8Docs/blob/main/docs/M8HeadlessSetup.md#software). The key code sent depends on the keymap that has been selected.
 
-##### Keymap #1 (for use with [m8.run](https://m8.run))
+#### Keymap #1 (for use with [m8.run](https://m8.run))
 
 | Key code | M8 function |
 |----------|-------------|
@@ -29,7 +29,7 @@ When you press a key, the keyboard sends a code to the host running the [M8 disp
 | `Z`      | Option      |
 | `X`      | Edit        |
 
-##### Keymap 2 (for use with [m8c](https://github.com/laamaa/m8c)):
+#### Keymap #2 (for use with [m8c](https://github.com/laamaa/m8c)):
 
 | Key code | M8 function |
 |----------|-------------|
