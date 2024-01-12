@@ -14,13 +14,8 @@ Features:
 - Bottom plate also has a mount for [Teensy 4.1](https://www.pjrc.com/store/teensy41.html) (with headers) which runs M8 Headless.
  
 ![top plate](img/top-plate.jpeg)
-![perspective view](img/perspective.jpeg)
-![side view](img/side.jpeg)
-![bottom plate](img/bottom-plate.jpeg)
-![matrix](img/wiring.jpeg)
 
 ### Keymap
-
 
 When you press a key, the keyboard sends a code to the host running the [M8 display client](https://github.com/DirtyWave/M8Docs/blob/main/docs/M8HeadlessSetup.md#software). The key code sent depends on the keymap that has been selected.
 
@@ -61,3 +56,8 @@ The easiest method is to use [UF2](https://github.com/microsoft/uf2):
 In the future, you can activate UF2 mass-storage mode by pressing `Fn` + `Edit`, eliminating the need to use the BOOTSEL button.
 
 For development, using the SWD (Serial Wire Debug) interface is much more convenient. You only need 3 wires: SWDCLK, GND and SWDIO. Connect a [Raspberry Pi Debug Probe](https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html) (which is just Pico with [picoprobe firmware](https://github.com/raspberrypi/picoprobe)) and run `make` in the M8-kbd directory. It will use [probe-rs](https://probe.rs/) to do the actual job.
+
+![perspective view](img/perspective.jpeg)
+![side view](img/side.jpeg)
+![bottom plate](img/bottom-plate.jpeg)
+![matrix](img/wiring.jpeg)
