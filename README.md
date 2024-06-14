@@ -10,6 +10,7 @@ Features:
 - Kailh Choc V1 switches ([datasheet](https://cdn-shop.adafruit.com/product-files/5113/CHOC+keyswitch_Kailh-CPG135001D01_C400229.pdf)), mounted in 13.85x13.85 square holes
 - [Raspberry Pico](https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf) as the keyboard controller
 - Firmware in Rust, based on [rp2040-hal](https://github.com/rp-rs/rp-hal-boards/tree/main/boards/rp-pico), [RTIC v1](https://rtic.rs/1/book/en/) and [Keyberon](https://github.com/TeXitoi/keyberon)
+- QMK firmware is also [available](https://github.com/kolontsov/m8-kbd-qmk) (**new!**)
 - Supports both [m8.run](https://m8.run) and [m8c](https://github.com/laamaa/m8c) keymaps and special functions (see below)
 - Bottom plate also has a mount for [Teensy 4.1](https://www.pjrc.com/store/teensy41.html) (with headers) which runs M8 Headless.
  
